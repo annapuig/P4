@@ -47,6 +47,7 @@ float verify(const GMM &gmm_candidate, const GMM & gmm_world, const fmatrix &dat
   score = lprobcand-lprobbackground;
 
   return score;
+  /// \HECHO
 }
 
 int main(int argc, const char *argv[]) {
