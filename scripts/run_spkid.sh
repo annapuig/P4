@@ -16,7 +16,8 @@ lists=lists
 w=work
 name_exp=one
 db=spk_8mu/speecon
-
+db_test=spk_8mu/sr_test
+world=users
 # ------------------------
 # Usage
 # ------------------------
@@ -86,13 +87,32 @@ fi
 # - Select (or change) different features, options, etc. Make you best choice and try several options.
 
 compute_lp() {
-    for filename in $(cat $lists/class/all.train $lists/class/all.test); do
+    for filename in $(sort $lists/class/all.train $lists/class/all.test); do
         mkdir -p `dirname $w/$FEAT/$filename.$FEAT`
         EXEC="wav2lp 8 $db/$filename.wav $w/$FEAT/$filename.$FEAT"
         echo $EXEC && $EXEC || exit 1
     done
 }
 
+compute_lpcc(){
+    for filename in $(sort $lists/class/all.train $lists/class/all.test); do
+        mkdir -p `dirname $w/$FEAT/$filename.$FEAT`
+        EXEC="wav2lpcc 8 14 $db/$filename.wav $w/$FEAT/$filename.$FEAT"
+        echo $EXEC && $EXEC || exit 1
+    done
+}
+
+compute_mfcc(){
+    dir_db=$1
+    shift
+    llistes=$*
+
+    for filename in $(sort $llistes); do
+        mkdir -p `dirname $w/$FEAT/$filename.$FEAT`
+        EXEC="wav2mfcc 13 $dir_db/$filename.wav $w/$FEAT/$filename.$FEAT" #Pel reconeixement de veu Q=13
+        echo $EXEC && $EXEC || exit 1
+    done 
+}
 
 #  Set the name of the feature (not needed for feature extraction itself)
 if [[ ! -n "$FEAT" && $# > 0 && "$(type -t compute_$1)" = function ]]; then
@@ -118,11 +138,12 @@ for cmd in $*; do
    if [[ $cmd == train ]]; then
        ## @file
 	   # \TODO
+       # \HECHO
 	   # Select (or change) good parameters for gmm_train
        for dir in $db/BLOCK*/SES* ; do
            name=${dir/*\/}
            echo $name ----
-           gmm_train  -v 1 -T 0.001 -N5 -m 1 -d $w/$FEAT -e $FEAT -g $w/gmm/$FEAT/$name.gmm $lists/class/$name.train || exit 1
+           gmm_train  -v 1 -T 0.001 -i 1 -N23 -m65 -d $w/$FEAT -e $FEAT -g $w/gmm/$FEAT/$name.gmm $lists/class/$name.train || exit 1
            echo
        done
    elif [[ $cmd == test ]]; then
@@ -142,20 +163,24 @@ for cmd in $*; do
    elif [[ $cmd == trainworld ]]; then
        ## @file
 	   # \TODO
+       # \HECHO
 	   # Implement 'trainworld' in order to get a Universal Background Model for speaker verification
 	   #
 	   # - The name of the world model will be used by gmm_verify in the 'verify' command below.
-       echo "Implement the trainworld option ..."
+       gmm_train  -v 1 -T 0.001 -i 1 -N35 -m 71 -d $w/$FEAT -e $FEAT -g $w/gmm/$FEAT/$name.gmm $lists/class/$name.train || exit 1 
+       #echo "Implement the trainworld option ..."
    elif [[ $cmd == verify ]]; then
        ## @file
 	   # \TODO 
+       # \HECHO
 	   # Implement 'verify' in order to perform speaker verification
 	   #
 	   # - The standard output of gmm_verify must be redirected to file $w/verif_${FEAT}_${name_exp}.log.
 	   #   For instance:
 	   #   * <code> gmm_verify ... > $w/verif_${FEAT}_${name_exp}.log </code>
 	   #   * <code> gmm_verify ... | tee $w/verif_${FEAT}_${name_exp}.log </code>
-       echo "Implement the verify option ..."
+       (gmm_train  -d $w/$FEAT -e $FEAT -D $w/gmm/$FEAT/$name.gmm -E gmm -w $world $lists/gmm.list $lists/verif/all.test $lists/verif/all.test.candidates | tee $w/verif_${FEAT}_${name_exp}.log) || exit 1 
+       #echo "Implement the verify option ..."
 
    elif [[ $cmd == verif_err ]]; then
        if [[ ! -s $w/verif_${FEAT}_${name_exp}.log ]] ; then
@@ -169,25 +194,34 @@ for cmd in $*; do
    elif [[ $cmd == finalclass ]]; then
        ## @file
 	   # \TODO
+       # \HECHO
 	   # Perform the final test on the speaker classification of the files in spk_ima/sr_test/spk_cls.
 	   # The list of users is the same as for the classification task. The list of files to be
 	   # recognized is lists/final/class.test
-       echo "To be implemented ..."
+       #Echo "To be implemented ..."
+       compute_$FEAT $db_verif $lists/final/class.test 
+       (gmm_classify -d $w/$FEAT -e $FEAT -D $w/gmm/$FEAT -E gmm $list/gmm.list $lists/final/class.test | tee class_test.log) ||exit 1 
    
    elif [[ $cmd == finalverif ]]; then
        ## @file
 	   # \TODO
+       # \HECHO 
 	   # Perform the final test on the speaker verification of the files in spk_ima/sr_test/spk_ver.
 	   # The list of legitimate users is lists/final/verif.users, the list of files to be verified
 	   # is lists/final/verif.test, and the list of users claimed by the test files is
 	   # lists/final/verif.test.candidates
-       echo "To be implemented ..."
+       #echo "To be implemented ..."
+       compute_$FEAT $db_verif $lists/final/verif.test 
+       (gmm_verify -d $w/$FEAT -e $FEAT -D $w/gmm/$FEAT -E gmm -w $world $lists/gmm.list $lists/final/verif.test $lists/final/verif.test.candidates | tee $w/verif_test.res) || exit 1
+        perl -ane 'print "$F[0]\t$F[1]\t";
+            if ($F[2] > 0.46754565488881) {print "1\n"} 
+            else {print "0\n"}' $w/verif_test.res | tee verif_test.log
    
    # If the command is not recognize, check if it is the name
    # of a feature and a compute_$FEAT function exists.
    elif [[ "$(type -t compute_$cmd)" = function ]]; then
 	   FEAT=$cmd
-       compute_$FEAT       
+       compute_$FEAT      
    else
        echo "undefined command $cmd" && exit 1
    fi
