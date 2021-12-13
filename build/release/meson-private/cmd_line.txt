@@ -1,0 +1,7 @@
+[options]
+prefix = /home/nikus/PAV
+libdir = lib
+buildtype = release
+
+[properties]
+
