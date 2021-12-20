@@ -87,31 +87,13 @@ fi
 # - Select (or change) different features, options, etc. Make you best choice and try several options.
 
 compute_lp() {
-    for filename in $(sort $lists/class/all.train $lists/class/all.test); do
-        mkdir -p `dirname $w/$FEAT/$filename.$FEAT`
-        EXEC="wav2lp 8 $db/$filename.wav $w/$FEAT/$filename.$FEAT"
-        echo $EXEC && $EXEC || exit 1
-    done
-}
-
-compute_lpcc(){
-    for filename in $(sort $lists/class/all.train $lists/class/all.test); do
-        mkdir -p `dirname $w/$FEAT/$filename.$FEAT`
-        EXEC="wav2lpcc 8 14 $db/$filename.wav $w/$FEAT/$filename.$FEAT"
-        echo $EXEC && $EXEC || exit 1
-    done
-}
-
-compute_mfcc(){
-    dir_db=$1
+    db_sen=$1 #canviat a classe
     shift
-    llistes=$*
-
-    for filename in $(sort $llistes); do
+    for filename in $(sort $*); do #canviat a classe
         mkdir -p `dirname $w/$FEAT/$filename.$FEAT`
-        EXEC="wav2mfcc 13 $dir_db/$filename.wav $w/$FEAT/$filename.$FEAT" #Pel reconeixement de veu Q=13
+        EXEC="wav2lp 8 $db_sen/$filename.wav $w/$FEAT/$filename.$FEAT"
         echo $EXEC && $EXEC || exit 1
-    done 
+    done
 }
 
 #  Set the name of the feature (not needed for feature extraction itself)
@@ -167,8 +149,7 @@ for cmd in $*; do
 	   # Implement 'trainworld' in order to get a Universal Background Model for speaker verification
 	   #
 	   # - The name of the world model will be used by gmm_verify in the 'verify' command below.
-       gmm_train  -v 1 -T 0.001 -i 1 -N35 -m 71 -d $w/$FEAT -e $FEAT -g $w/gmm/$FEAT/$name.gmm $lists/class/$name.train || exit 1 
-       #echo "Implement the trainworld option ..."
+        gmm_train -v 1 -T 0.0001 -N 200 -m 5 -d $w/$FEAT -e $FEAT -g $w/gmm/$FEAT/$world.gmm $lists/verif/$world.train || exit 1       #echo "Implement the trainworld option ..."
    elif [[ $cmd == verify ]]; then
        ## @file
 	   # \TODO 
@@ -179,8 +160,7 @@ for cmd in $*; do
 	   #   For instance:
 	   #   * <code> gmm_verify ... > $w/verif_${FEAT}_${name_exp}.log </code>
 	   #   * <code> gmm_verify ... | tee $w/verif_${FEAT}_${name_exp}.log </code>
-       (gmm_train  -d $w/$FEAT -e $FEAT -D $w/gmm/$FEAT/$name.gmm -E gmm -w $world $lists/gmm.list $lists/verif/all.test $lists/verif/all.test.candidates | tee $w/verif_${FEAT}_${name_exp}.log) || exit 1 
-       #echo "Implement the verify option ..."
+        gmm_verify -d $w/$FEAT -e $FEAT -D $w/gmm/$FEAT -E gmm -w $world lists/gmm.list lists/verif/all.test lists/verif/all.test.candidates | tee $w/verif_${FEAT}_${name_exp}.log
 
    elif [[ $cmd == verif_err ]]; then
        if [[ ! -s $w/verif_${FEAT}_${name_exp}.log ]] ; then
@@ -199,8 +179,8 @@ for cmd in $*; do
 	   # The list of users is the same as for the classification task. The list of files to be
 	   # recognized is lists/final/class.test
        #Echo "To be implemented ..."
-       compute_$FEAT $db_verif $lists/final/class.test 
-       (gmm_classify -d $w/$FEAT -e $FEAT -D $w/gmm/$FEAT -E gmm $list/gmm.list $lists/final/class.test | tee class_test.log) ||exit 1 
+     compute_lp $db_test $lists/final/class.test
+     (gmm_classify -d $w/$FEAT -e $FEAT -D $w/gmm/$FEAT -E gmm $lists/gmm.list  $lists/final/class.test | tee class_test.log) || exit 1
    
    elif [[ $cmd == finalverif ]]; then
        ## @file
@@ -211,17 +191,18 @@ for cmd in $*; do
 	   # is lists/final/verif.test, and the list of users claimed by the test files is
 	   # lists/final/verif.test.candidates
        #echo "To be implemented ..."
-       compute_$FEAT $db_verif $lists/final/verif.test 
-       (gmm_verify -d $w/$FEAT -e $FEAT -D $w/gmm/$FEAT -E gmm -w $world $lists/gmm.list $lists/final/verif.test $lists/final/verif.test.candidates | tee $w/verif_test.res) || exit 1
-        perl -ane 'print "$F[0]\t$F[1]\t";
-            if ($F[2] > 0.46754565488881) {print "1\n"} 
-            else {print "0\n"}' $w/verif_test.res | tee verif_test.log
-   
+       compute_$FEAT $db_test $lists/final/verif.test 
+       gmm_verify -d $w/$FEAT -e $FEAT -D $w/gmm/$FEAT -E gmm -w $world lists/final/verif.users lists/final/verif.test lists/final/verif.test.candidates | tee $w/verif_test.log
+       perl -ane 'print "$F[0]\t$F[1]\t";
+                  if ($F[2] > -6.9054697796484) {print "1\n"} 
+                  else {print "0\n"}' $w/verif_test.log | tee  verif_test.log 
+                #canviar -3.214 i ficarhi el num optim de la db (ficar el comando FEAT=lp run_spkid verif_err i agafar el th que ens dona)
+
    # If the command is not recognize, check if it is the name
    # of a feature and a compute_$FEAT function exists.
    elif [[ "$(type -t compute_$cmd)" = function ]]; then
 	   FEAT=$cmd
-       compute_$FEAT      
+       compute_$FEAT $db $lists/class/all.train $lists/class/all.test #canviat a classe      
    else
        echo "undefined command $cmd" && exit 1
    fi
