@@ -19,7 +19,7 @@ if [[ $# != 3 ]]; then
    exit 1
 fi
 
-lpc_order=$1
+lpc_order=$1 #ordre de l'analisi
 inputfile=$2
 outputfile=$3
 
