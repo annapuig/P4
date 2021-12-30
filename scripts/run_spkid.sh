@@ -89,7 +89,6 @@ fi
 
 compute_lp() {
     #db_sen=$1 #canviat a classe
-    #shift ho he comentat ara pk jo q se..
     for filename in $(sort $lists/class/all.train $lists/class/all.test); do 
         mkdir -p `dirname $w/$FEAT/$filename.$FEAT`
         EXEC="wav2lp 12 $db/$filename.wav $w/$FEAT/$filename.$FEAT"
