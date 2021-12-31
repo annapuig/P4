@@ -65,6 +65,7 @@ ejercicios indicados.
 LPCC
 
 MFCC
+
 <img width="407" alt="image" src="https://user-images.githubusercontent.com/92022992/147829850-83e613ef-a23d-4654-ae4c-1189b1718105.png">
 
 <img width="471" alt="image" src="https://user-images.githubusercontent.com/92022992/147829878-9c07ae2b-574e-4b13-bea9-34b44cd938c9.png">
