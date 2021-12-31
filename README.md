@@ -55,8 +55,11 @@ ejercicios indicados.
   <img width="465" alt="image" src="https://user-images.githubusercontent.com/92022992/147825028-a81072ac-c62f-4bb5-9ea0-378195af75f5.png">
   
   <img width="396" alt="image" src="https://user-images.githubusercontent.com/92022992/147825020-fbae075d-c50d-45b4-95fd-1a1dafe6b42e.png">
+  
   f4,5
+  
   <img width="467" alt="image" src="https://user-images.githubusercontent.com/92022992/147825049-248cf2aa-d2f5-423c-bc21-980f5055e8f9.png">
+  
 <img width="403" alt="image" src="https://user-images.githubusercontent.com/92022992/147825057-16bc283a-c48d-44d1-b0bf-e7c6ec28fcc2.png">
 
 LPCC
@@ -64,8 +67,7 @@ LPCC
 MFCC
 <img width="407" alt="image" src="https://user-images.githubusercontent.com/92022992/147829850-83e613ef-a23d-4654-ae4c-1189b1718105.png">
 
-<img width="781" alt="image" src="https://user-images.githubusercontent.com/92022992/147829862-65c45428-74c2-4d50-9974-6df37f46fc2c.png">
-
+<img width="471" alt="image" src="https://user-images.githubusercontent.com/92022992/147829878-9c07ae2b-574e-4b13-bea9-34b44cd938c9.png">
 
   + Indique **todas** las órdenes necesarias para obtener las gráficas a partir de las señales 
     parametrizadas.
