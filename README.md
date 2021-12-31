@@ -60,6 +60,9 @@ ejercicios indicados.
 
 LPCC
 
+MFCC
+<img width="390" alt="image" src="https://user-images.githubusercontent.com/92022992/147829762-9b5595b0-20d0-4dcd-9cba-4bf5e096dd02.png">
+
 
   + Indique **todas** las órdenes necesarias para obtener las gráficas a partir de las señales 
     parametrizadas.
