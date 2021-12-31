@@ -68,7 +68,7 @@ int main(int argc, const char *argv[]) {
     gmm.em_split(data, nmix, init_iterations, init_threshold, verbose);
     break;
   default:
-    gmm.random_init(data, nmix);
+    //gmm.random_init(data, nmix);
     ;
   }
   /// \HECHO

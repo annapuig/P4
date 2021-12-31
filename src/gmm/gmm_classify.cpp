@@ -38,7 +38,7 @@ int classify(const vector<GMM> &vgmm, const fmatrix &dat, float &maxlprob) {
   }
   return maxind;
 }
-  /// \HECHO fetttt
+  /// \HECHO
 
 
 int main(int argc, const char *argv[]) {

@@ -1,27 +1,23 @@
 close all;
 
 %  Obrim els fitxers
-fileLPC = fopen('lp_2_3.txt', 'r');
-%fileLPCC = fopen('lpcc_2_3.txt', 'r');
-%fileMFCC = fopen('mfcc_2_3.txt', 'r');
+fileLPCC = fopen('lpcc_2_3.txt', 'r');
 
 %  Obtenim els coeficients
-coefLPC = fscanf(fileLPC, '%f');
-%coefLPCC = fscanf(fileLPCC, '%f');
-%coefMFCC = fscanf(fileMFCC, '%f');
+coefLPCC = fscanf(fileLPCC, '%f');
 
 %  Tanquem els fitxers
-fclose(fileLPC);
-%fclose(fileLPCC);
-%fclose(fileMFCC);
+fclose(fileLPCC);
+
+%%%%%%%%%% CONFIGURACIÓ DE LES GRÀFIQUES %%%%%%%%%%%
 
 figure;
 xlabel('C2');
 ylabel('C3');
 grid on;
-title('LPC Coeficients')
+title('LPCC Coeficients')
 hold on;
-for i=1:(size(coefLPC,1)-1)
-    plot(coefLPC(i), coefLPC(i+1), 'x');
+for i=1:(size(coefLPCC,1)-1)
+    plot(coefLPCC(i), coefLPCC(i+1), 'x');
 end
 hold off;

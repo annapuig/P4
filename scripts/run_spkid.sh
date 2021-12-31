@@ -107,7 +107,7 @@ compute_lpcc(){
 compute_mfcc(){
     for filename in $(sort $lists/class/all.train $lists/class/all.test); do
         mkdir -p `dirname $w/$FEAT/$filename.$FEAT`
-        EXEC="wav2mfcc 13 $db/filename.wav $w/$FEAT/$filename.$FEAT" #de teoria, en reconeixement de veu Q=13
+        EXEC="wav2mfcc 13 $db/$filename.wav $w/$FEAT/$filename.$FEAT" #de teoria, en reconeixement de veu Q=13
         echo $EXEC && $EXEC || exit 1
     done 
 }
