@@ -21,8 +21,8 @@ fi
 
 lpc_order=$1 #ordre de l'analisi
 lpcc_order=$2
-inputfile=$2
-outputfile=$3
+inputfile=$3
+outputfile=$4
 
 UBUNTU_SPTK=1
 if [[ $UBUNTU_SPTK == 1 ]]; then
