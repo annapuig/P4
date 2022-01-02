@@ -87,6 +87,16 @@ MFCC
 
 - Usando el programa <code>pearson</code>, obtenga los coeficientes de correlación normalizada entre los
   parámetros 2 y 3 para un locutor, y rellene la tabla siguiente con los valores obtenidos.
+  
+  <img width="608" alt="image" src="https://user-images.githubusercontent.com/92022992/147864591-257a40ae-ccc9-4ae4-94b1-919d4bf7d992.png">
+  
+  <img width="179" alt="image" src="https://user-images.githubusercontent.com/92022992/147864633-60ad1fcd-c2c7-46cb-98b0-277ad52ee73a.png">
+
+<img width="182" alt="image" src="https://user-images.githubusercontent.com/92022992/147864623-265ccc07-c505-4cc9-9a4b-82e0d28933a3.png">
+
+
+<img width="201" alt="image" src="https://user-images.githubusercontent.com/92022992/147864613-f0237253-768b-4729-9b4b-86f82ee9c452.png">
+
 
   |                        | LP   | LPCC | MFCC |
   |------------------------|:----:|:----:|:----:|
