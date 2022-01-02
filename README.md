@@ -62,13 +62,24 @@ ejercicios indicados.
   
 <img width="403" alt="image" src="https://user-images.githubusercontent.com/92022992/147825057-16bc283a-c48d-44d1-b0bf-e7c6ec28fcc2.png">
 
+<img width="283" alt="image" src="https://user-images.githubusercontent.com/92022992/147864336-cbf46d80-1d0e-4641-9102-9b01ec88e107.png">
+
+
 LPCC
+
+<img width="381" alt="image" src="https://user-images.githubusercontent.com/92022992/147864351-b7122527-2946-457f-8b3f-c457fae76519.png">
+<img width="465" alt="image" src="https://user-images.githubusercontent.com/92022992/147864362-3382023d-9c5a-4d37-99ca-ea7bad9b0972.png">
+<img width="308" alt="image" src="https://user-images.githubusercontent.com/92022992/147864379-86575b6e-9332-411b-a7f3-4da006cb9618.png">
+
+
 
 MFCC
 
 <img width="407" alt="image" src="https://user-images.githubusercontent.com/92022992/147829850-83e613ef-a23d-4654-ae4c-1189b1718105.png">
 
 <img width="471" alt="image" src="https://user-images.githubusercontent.com/92022992/147829878-9c07ae2b-574e-4b13-bea9-34b44cd938c9.png">
+<img width="321" alt="image" src="https://user-images.githubusercontent.com/92022992/147864408-920c86a9-7be2-4347-9b54-426769eb0a7f.png">
+
 
   + Indique **todas** las órdenes necesarias para obtener las gráficas a partir de las señales 
     parametrizadas.
