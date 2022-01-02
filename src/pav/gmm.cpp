@@ -36,15 +36,12 @@ namespace upc {
 
   /*
    Use this function to compute log(x+y) from logx and logy:
-
    The basic expression,
        log(e^logx + e^logy),
    may result in 'nan', if e^logx or e^logy is too large
-
    Solution:
    => if logx is larger,
    log(e^logx + e^logy)=log(e^logx * (1+e^logy/e^logx)) = logx +log(1+e^(logy-logx)) 
-
    (same idea if logy is larger)
   */
 
@@ -79,8 +76,8 @@ namespace upc {
       w[k] = w[last];
       unsigned int i;
       for (i=0; i<vector_size; ++i) {
-	mu[k][i] = mu[last][i];
-	inv_sigma[k][i] = inv_sigma[last][i];
+	      mu[k][i] = mu[last][i];
+	      inv_sigma[k][i] = inv_sigma[last][i];
       }
     }
     resize(nmix-1, vector_size);     
@@ -112,7 +109,7 @@ namespace upc {
 
     for (n=0; n<data.nrow(); ++n) {
       /// \TODO Compute the logprob of a single frame of the input data; you can use gmm_logprob() above.
-      lprob +=gmm_logprob(data[n]);
+      lprob = lprob + gmm_logprob(data[n]);
     }   /// \HECHO
     return lprob/n;
     /// \HECHO
@@ -128,8 +125,10 @@ namespace upc {
     unsigned int n;
     fmatrix weights(data.nrow(), 1);
 
-    for (n=0; n < weights.nrow(); ++n)
+    for (n=0; n < weights.nrow(); ++n){
       weights[n][0] = 1.0F;
+    }
+      
     em_maximization(data, weights);
     return 0;
   }
@@ -148,18 +147,18 @@ namespace upc {
 
     for (n=0; n<data.nrow(); ++n) {
       for (k=0; k < nmix; ++k) {
-	w[k] +=  weights[n][k];
-	for (j=0; j < vector_size; ++j) {
-	  mu[k][j] += weights[n][k] * data[n][j]; /* sum{x w_i} */
-	  inv_sigma[k][j] += weights[n][k] * data[n][j] * data[n][j]; /* sum{x^2 w_i} */
-	}
+	      w[k] +=  weights[n][k];
+	      for (j=0; j < vector_size; ++j) {
+	        mu[k][j] += weights[n][k] * data[n][j]; /* sum{x w_i} */
+	        inv_sigma[k][j] += weights[n][k] * data[n][j] * data[n][j]; /* sum{x^2 w_i} */
+	      }
       }
     }
     for (k=0; k < nmix; ++k) {
       for (j=0; j < vector_size; ++j) {
-	mu[k][j] /= w[k]; /* sum{x w_i}/sum{w_i} */
-	inv_sigma[k][j] /= w[k]; /* sum{x^2 w_i}/sum{w_i} */
-	inv_sigma[k][j] = 1.0F/sqrt(inv_sigma[k][j] - mu[k][j]*mu[k][j]); /* 1/sigma */
+	      mu[k][j] /= w[k]; /* sum{x w_i}/sum{w_i} */
+	      inv_sigma[k][j] /= w[k]; /* sum{x^2 w_i}/sum{w_i} */
+	      inv_sigma[k][j] = 1.0F/sqrt(inv_sigma[k][j] - mu[k][j]*mu[k][j]); /* 1/sigma */
       }
       w[k] /=  data.nrow();
     }
@@ -176,8 +175,7 @@ namespace upc {
     if (data.ncol() != vector_size)
       return -1.0;
 
-    if (weights.nrow() != data.nrow() or
-	weights.ncol() != nmix)
+    if (weights.nrow() != data.nrow() or weights.ncol() != nmix)
       weights.resize(data.nrow(), nmix);
 
     //use log(prob) for intermediate computation, to avoid underflow
@@ -190,8 +188,10 @@ namespace upc {
       	log_prob_x = add_logs(log_prob_x, weights[n][k]);
       }
 
-      for (k=0; k < nmix; ++k)
-	weights[n][k] = exp(weights[n][k]-log_prob_x);
+      for (k=0; k < nmix; ++k){
+        weights[n][k] = exp(weights[n][k]-log_prob_x);
+      }
+        
       log_prob_total += log_prob_x;
     }
 
@@ -212,13 +212,19 @@ namespace upc {
 	  //
       // Update old_prob, new_prob and inc_prob in order to stop the loop if logprob does not
       // increase more than inc_threshold.
-      new_prob = em_expectation(data,weights);
-      em_expectation(data,weights);
+      new_prob = em_expectation(data, weights);
+      em_maximization(data,weights);
       inc_prob = new_prob - old_prob;
-      old_prob = new_prob;
+      //old_prob = new_prob;
       ///\HECHO
       if (verbose & 01)
         cout << "GMM nmix=" << nmix << "\tite=" << iteration << "\tlog(prob)=" << new_prob << "\tinc=" << inc_prob << endl;
+
+      if(inc_prob <= inc_threshold){
+        //prova!!return 0:  
+        break;
+      }
+      old_prob = new_prob;   
     }
     return 0;
   }
@@ -261,13 +267,13 @@ namespace upc {
       old_size = nmix;
       resize(target_size, vector_size);
       for (i=old_size, j=0; i<nmix; ++i, ++j)
-	split_mixture(j, i);
+	      split_mixture(j, i);
     } else {
       old_size = nmix;
       resize(target_size, vector_size);
       /* best way: select mixtures with larger variance (now, the first ones) */
       for (i=old_size, j=0; i<nmix; ++i, ++j)
-	split_mixture(j, i);
+	      split_mixture(j, i);
     }
     return nmix;
   }
@@ -317,17 +323,16 @@ namespace upc {
       os << "w[" << k << "]=\t" << w[k] << '\n';
 
       os << "mu[" << k << "]=" << mu[k][0];
-      for (i=1; i<vector_size; ++i) 
-	os << "\t" << mu[k][i]; 
-      os << '\n';
+    for (i=1; i<vector_size; ++i) 
+	    os << "\t" << mu[k][i]; 
+    os << '\n';
 
       os << "sig[" << k << "]=" << 1/inv_sigma[k][0];
       for (i=1; i<vector_size; ++i) 
-	os << "\t" << 1/inv_sigma[k][i];
+	      os << "\t" << 1/inv_sigma[k][i];
       os << '\n' << endl;
       
     }
     return os;
   }
 }
-
