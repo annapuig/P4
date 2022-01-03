@@ -175,6 +175,10 @@ Complete el código necesario para realizar verificación del locutor y optimice
   de verificación de SPEECON. La tabla debe incluir el umbral óptimo, el número de falsas alarmas y de
   pérdidas, y el score obtenido usando la parametrización que mejor resultado le hubiera dado en la tarea
   de reconocimiento.
+  
+  ![image](https://user-images.githubusercontent.com/92022992/147952941-0be343e4-a990-479f-910d-d410717b183a.png)
+ 
+ amb MFCC 
  
 ### Test final
 
