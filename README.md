@@ -147,6 +147,25 @@ Complete el código necesario para realizar reconociminto del locutor y optimice
 
 - Inserte una tabla con la tasa de error obtenida en el reconocimiento de los locutores de la base de datos
   SPEECON usando su mejor sistema de reconocimiento para los parámetros LP, LPCC y MFCC.
+  
+   LP
+  
+  <img width="369" alt="image" src="https://user-images.githubusercontent.com/92022992/147947350-c3d1b935-3445-420a-9ac3-5f59bc5a6909.png">
+
+
+  LPCC
+  
+  <img width="381" alt="image" src="https://user-images.githubusercontent.com/92022992/147947305-6732144d-47da-44a7-8f99-f78ae2ddbfba.png">
+
+
+  MFCC
+  
+  
+  
+  |               | LP   | LPCC | MFCC |
+  |---------------|:----:|:----:|:----:|
+  | TAXA D'ERROR  |      |      |      |
+  
 
 ### Verificación del locutor.
 
