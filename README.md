@@ -204,7 +204,7 @@ Complete el código necesario para realizar verificación del locutor y optimice
   pérdidas, y el score obtenido usando la parametrización que mejor resultado le hubiera dado en la tarea
   de reconocimiento.
   
-  ![image](https://user-images.githubusercontent.com/92022992/147952941-0be343e4-a990-479f-910d-d410717b183a.png)
+  ![image](https://user-images.githubusercontent.com/92537816/148085245-65d6b0b2-df31-4a11-8c91-d350978f5ee9.png)
  
  amb MFCC 
  
