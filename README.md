@@ -53,9 +53,13 @@ ejercicios indicados.
 
 - Escriba el *pipeline* principal usado para calcular los coeficientes cepstrales de predicción lineal
   (LPCC) en su fichero <code>scripts/wav2lpcc.sh</code>:
+  
+  ![image](https://user-images.githubusercontent.com/92537816/148083644-df2b69cb-82ea-4064-b577-c5cac14eb70f.png)
 
 - Escriba el *pipeline* principal usado para calcular los coeficientes cepstrales en escala Mel (MFCC) en su
   fichero <code>scripts/wav2mfcc.sh</code>:
+  
+  ![image](https://user-images.githubusercontent.com/92537816/148083727-17e8d79e-3c39-487d-88c9-e689c478ee44.png)
 
 ### Extracción de características.
 
@@ -182,11 +186,13 @@ Complete el código necesario para realizar reconociminto del locutor y optimice
 
   MFCC
   
+  ![image](https://user-images.githubusercontent.com/92537816/148083513-11367d51-70bf-4539-84b3-0aa872f86b02.png)
+
   
   
   |               | LP   | LPCC | MFCC |
   |---------------|:----:|:----:|:----:|
-  | TAXA D'ERROR  |12.48%|1.27% |      |
+  | TAXA D'ERROR  |12.48%|1.27% |1.27% |
   
 
 ### Verificación del locutor.
