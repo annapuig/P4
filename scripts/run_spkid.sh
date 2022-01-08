@@ -146,7 +146,8 @@ for cmd in $*; do
            echo
        done
    elif [[ $cmd == test ]]; then
-       (gmm_classify -d $w/$FEAT -e $FEAT -D $w/gmm/$FEAT -E gmm $lists/gmm.list  $lists/class/all.test | tee $w/class_${FEAT}_${name_exp}.log) || exit 1
+       (gmm_classify -d $w/$FEAT -e $FEAT -D $w/gmm/$FEAT -E gmm $lists/gmm.list  $lists/class/all.test | 
+            tee $w/class_${FEAT}_${name_exp}.log) || exit 1
 
    elif [[ $cmd == classerr ]]; then
        if [[ ! -s $w/class_${FEAT}_${name_exp}.log ]] ; then
@@ -166,8 +167,9 @@ for cmd in $*; do
 	   # Implement 'trainworld' in order to get a Universal Background Model for speaker verification
 	   #
 	   # - The name of the world model will be used by gmm_verify in the 'verify' command below.
-        gmm_train -v 1 -T 0.0001 -m 64 -d $w/$FEAT -e $FEAT -g $w/gmm/$FEAT/$world.gmm $lists/verif/$world.train || exit 1       
-        echo 
+        #gmm_train -v 1 -T 0.0001 -i 1 -N 80 -m 64 -d $w/$FEAT -e $FEAT -g $w/gmm/$FEAT/$world.gmm $lists/verif/$world.train || exit 1       
+        gmm_train -v 1 -T 0.0001 -i 1 -m 64 -d $w/$FEAT -e $FEAT -g $w/gmm/$FEAT/$world.gmm $lists/verif/$world.train || exit 1
+        #echo 
    elif [[ $cmd == verify ]]; then
        ## @file
 	   # \TODO 
@@ -217,9 +219,12 @@ for cmd in $*; do
 	   # lists/final/verif.test.candidates
        #echo "To be implemented ..."
        compute_$FEAT $db_test $lists/final/verif.test 
-       gmm_verify -d $w/$FEAT -e $FEAT -D $w/gmm/$FEAT -E gmm -w $world lists/final/verif.users lists/final/verif.test lists/final/verif.test.candidates | tee $w/verif_test.log
+       gmm_verify -d work/mfcc -e mfcc -D work/gmm/mfcc -E gmm -w users lists/final/verif.users 
+            lists/final/verif.test lists/final/verif.test.candidates
+       #(gmm_verify -d $w/$FEAT -e $FEAT -D $w/gmm/$FEAT -E gmm -w $world $lists/gmm.list  $lists/final/verif.test $lists/final/verif.test.candidates |
+       #      tee $w/final_verif_${FEAT}_${name_exp}.log) || exit 1
        perl -ane 'print "$F[0]\t$F[1]\t";
-                  if ($F[2] > -6.9054697796484) {print "1\n"} 
+                  if ($F[2] > 0.123401816495396) {print "1\n"} 
                   else {print "0\n"}' $w/verif_test.log | tee  verif_test.log 
                 #canviar -3.214 i ficarhi el num optim de la db (el -6.9..... feo) (ficar el comando FEAT=lp run_spkid verif_err i agafar el th que ens dona)
 
@@ -236,42 +241,4 @@ done
 date
 
 exit 0
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
