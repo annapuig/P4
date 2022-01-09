@@ -178,7 +178,7 @@ Complete el código necesario para realizar reconociminto del locutor y optimice
   
   |               | LP   | LPCC | MFCC |
   |---------------|:----:|:----:|:----:|
-  | TAXA D'ERROR  |8.79%|1.27% |1.02% |
+  | TAXA D'ERROR  |8.79% |1.27% |1.02% |
   
 
 ### Verificación del locutor.
@@ -192,6 +192,10 @@ Complete el código necesario para realizar verificación del locutor y optimice
   
   <img width="336" alt="image" src="https://user-images.githubusercontent.com/92022992/148696105-67fb8f38-c698-4417-8e43-de4dcd200415.png">
 
+ 
+  |UMBRAL OPTIMO| PERDIDAS | FALSA ALARMA | COSTE |
+  |:-----------:|:--------:|:------------:|:-----:|
+  |0.07402790045|  0.08    |    0.002     |  9.8  |
  
  
 ### Test final
