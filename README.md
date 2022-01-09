@@ -76,14 +76,8 @@ ejercicios indicados.
   <img width="403" alt="image" src="https://user-images.githubusercontent.com/92022992/147825057-16bc283a-c48d-44d1-b0bf-e7c6ec28fcc2.png">
 
 
-  <img width="287" alt="image" src="https://user-images.githubusercontent.com/92022992/148694805-9c2c5233-80e5-4553-868c-06f807046b56.png">
+<img width="283" alt="image" src="https://user-images.githubusercontent.com/92022992/148694830-49a492b9-1a55-42c7-8d4d-3195202e7472.png">
 
-  
-  
-  
-  
-  
-  <img width="283" alt="image" src="https://user-images.githubusercontent.com/92022992/147864336-cbf46d80-1d0e-4641-9102-9b01ec88e107.png">
 
 
   LPCC
