@@ -74,9 +74,9 @@ ejercicios indicados.
   
   
   <img width="403" alt="image" src="https://user-images.githubusercontent.com/92022992/147825057-16bc283a-c48d-44d1-b0bf-e7c6ec28fcc2.png">
-
-
-  <img width="283" alt="image" src="https://user-images.githubusercontent.com/92022992/147864336-cbf46d80-1d0e-4641-9102-9b01ec88e107.png">
+  
+  
+  <img width="283" alt="image" src="https://user-images.githubusercontent.com/92022992/148694830-49a492b9-1a55-42c7-8d4d-3195202e7472.png">
 
 
   LPCC
@@ -144,8 +144,7 @@ Complete el código necesario para entrenar modelos GMM.
   
   <img width="456" alt="image" src="https://user-images.githubusercontent.com/92022992/147944422-0f84a9b0-8d33-4a9c-ae96-f4ed6cef25b1.png">
 
-  <img width="424" alt="image" src="https://user-images.githubusercontent.com/92022992/147944505-e109d53b-90f9-43da-92fd-ad4e23138068.png">
-
+<img width="419" alt="image" src="https://user-images.githubusercontent.com/92022992/148695046-d9c2413d-550c-49e0-91b4-e35d6b344ef6.png">
   
 - Inserte una gráfica que permita comparar los modelos y poblaciones de dos locutores distintos (la gŕafica
   de la página 20 del enunciado puede servirle de referencia del resultado deseado). Analice la capacidad
@@ -174,25 +173,12 @@ Complete el código necesario para realizar reconociminto del locutor y optimice
 - Inserte una tabla con la tasa de error obtenida en el reconocimiento de los locutores de la base de datos
   SPEECON usando su mejor sistema de reconocimiento para los parámetros LP, LPCC y MFCC.
   
-   LP
-  
-  <img width="369" alt="image" src="https://user-images.githubusercontent.com/92022992/147947350-c3d1b935-3445-420a-9ac3-5f59bc5a6909.png">
-
-
-  LPCC
-  
-  <img width="381" alt="image" src="https://user-images.githubusercontent.com/92022992/147947305-6732144d-47da-44a7-8f99-f78ae2ddbfba.png">
-
-
-  MFCC
-  
-  ![image](https://user-images.githubusercontent.com/92537816/148083513-11367d51-70bf-4539-84b3-0aa872f86b02.png)
-
+ <img width="392" alt="image" src="https://user-images.githubusercontent.com/92022992/148695151-ee52efa2-295c-481d-af85-01c205d4a244.png">
   
   
   |               | LP   | LPCC | MFCC |
   |---------------|:----:|:----:|:----:|
-  | TAXA D'ERROR  |12.48%|1.27% |1.27% |
+  | TAXA D'ERROR  |8.79% |1.27% |1.02% |
   
 
 ### Verificación del locutor.
@@ -204,9 +190,13 @@ Complete el código necesario para realizar verificación del locutor y optimice
   pérdidas, y el score obtenido usando la parametrización que mejor resultado le hubiera dado en la tarea
   de reconocimiento.
   
-  ![image](https://user-images.githubusercontent.com/92537816/148085245-65d6b0b2-df31-4a11-8c91-d350978f5ee9.png)
+  <img width="336" alt="image" src="https://user-images.githubusercontent.com/92022992/148696105-67fb8f38-c698-4417-8e43-de4dcd200415.png">
+
  
- amb MFCC 
+  |UMBRAL OPTIMO| PERDIDAS | FALSA ALARMA | COSTE |
+  |:-----------:|:--------:|:------------:|:-----:|
+  |0.07402790045|  0.08    |    0.002     |  9.8  |
+ 
  
 ### Test final
 
