@@ -14,15 +14,16 @@ cleanup() {
    \rm -f $base.*
 }
 
-if [[ $# != 3 ]]; then
+if [[ $# != 5 ]]; then
    echo "$0 mfcc_order input.wav output.mfcc"
    exit 1
 fi  
 
-
-mfcc_order=$1 #ordre de l'analisi
-inputfile=$2
-outputfile=$3
+fm=$1 #freqüència de mostreig
+mfcc_order=$2 #ordre de l'analisi
+melbank_order=$3  #ordre banc de filtres
+inputfile=$4 
+outputfile=$5
 
 UBUNTU_SPTK=1
 if [[ $UBUNTU_SPTK == 1 ]]; then
